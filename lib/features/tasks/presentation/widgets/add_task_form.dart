@@ -67,7 +67,10 @@ class _AddTaskFormState extends State<AddTaskForm> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.check, color: Colors.teal,),
+            icon: const Icon(
+              Icons.check,
+              color: Colors.teal,
+            ),
             onPressed: () async {
               await saveTask();
             },
@@ -79,6 +82,11 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
   Future<void> saveTask() async {
     final taskName = _textController.value.text;
+
+    if (taskName.isEmpty) {
+      Navigator.pop(context);
+      return;
+    }
 
     final task = Task(id: 0, title: taskName);
 

@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/exceptions/failure.dart';
 import '../../domain/entities/task.dart';
+import '../../domain/entities/task_filter_options.dart';
 import '../../domain/repositories/tasks_repository_contract.dart';
 
 part 'tasks_cubit.freezed.dart';
@@ -14,21 +15,34 @@ class TasksCubit extends Cubit<TasksState> {
   final TasksRepositoryContract _tasksRepository;
   List<Task> _tasks = [];
 
+  TaskFilterOptions? _currentFilter;
+
   Future<void> loadTasks() async {
     emit(const LoadingTasks());
 
     try {
       _tasks = await _tasksRepository.getTasks();
 
-      emit(TasksLoaded(_tasks));
+      emitLoaded();
     } on Failure catch (e) {
       emit(TasksErrors(e.message));
     }
   }
 
-  Future<void> filterTasksByCompletion(final bool isCompleted) async {
-    final filteredTasks =
-        _tasks.where((task) => task.completed == isCompleted).toList();
+  void filterTasksByCompletion(final TaskFilterOptions option) {
+    _currentFilter = option;
+
+    if (option == TaskFilterOptions.all) {
+      emitLoaded();
+      return;
+    }
+
+    final filteredTasks = _tasks
+        .where(
+          (final task) =>
+              task.completed == (option == TaskFilterOptions.completed),
+        )
+        .toList();
 
     emit(TasksLoaded(filteredTasks));
   }
@@ -45,7 +59,7 @@ class TasksCubit extends Cubit<TasksState> {
     } on Failure catch (e) {
       emit(TasksErrors(e.message));
     } finally {
-      emit(TasksLoaded(_tasks));
+      emitLoaded();
     }
   }
 
@@ -63,7 +77,7 @@ class TasksCubit extends Cubit<TasksState> {
     } on Failure catch (e) {
       emit(TasksErrors(e.message));
     } finally {
-      emit(TasksLoaded(_tasks));
+      emitLoaded();
     }
   }
 
@@ -79,7 +93,15 @@ class TasksCubit extends Cubit<TasksState> {
     } on Failure catch (e) {
       emit(TasksErrors(e.message));
     } finally {
-      emit(TasksLoaded(_tasks));
+      emitLoaded();
     }
+  }
+
+  void emitLoaded() {
+    if (_currentFilter != TaskFilterOptions.all) {
+      filterTasksByCompletion(_currentFilter ?? TaskFilterOptions.all);
+      return;
+    }
+    emit(TasksLoaded(_tasks));
   }
 }

@@ -15,7 +15,7 @@ class EmptyListWidget extends StatelessWidget {
           SizedBox(height: context.screenHeight * 0.15),
           SvgPicture.asset('assets/images/empty_task_list.svg', height: 400),
           Text(
-            'Start adding your first task!',
+            'No tasks were found',
             style: context.textTheme.headlineSmall,
           ),
         ],

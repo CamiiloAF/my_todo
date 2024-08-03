@@ -34,14 +34,14 @@ class TasksPage extends StatelessWidget {
             title: const Text('Tasks'),
           ),
           floatingActionButton: const AddTaskFab(),
-          body: Column(
+          body: const Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
                 padding: EdgeInsets.only(right: 16),
-                child: const TaskFilter(),
+                child: TaskFilter(),
               ),
-              Expanded(child: const TaskList()),
+              Expanded(child: TaskList()),
             ],
           ),
         ),

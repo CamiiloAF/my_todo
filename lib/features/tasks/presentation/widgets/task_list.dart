@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_todo/features/tasks/presentation/widgets/task_empty.dart';
 
 import '../state_managers/tasks_cubit.dart';
+import 'task_empty.dart';
 import 'task_list_item.dart';
 
 class TaskList extends StatelessWidget {
