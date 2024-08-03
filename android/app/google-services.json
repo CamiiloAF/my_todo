@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "810878529420",
+    "project_id": "my-todo-fe31a",
+    "storage_bucket": "my-todo-fe31a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810878529420:android:187273218dd1b0e92370a9",
+        "android_client_info": {
+          "package_name": "com.camiloagudelo.my_todo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbyQfOAg_a4UjxOxSZugaLxAqNdGQpvGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
