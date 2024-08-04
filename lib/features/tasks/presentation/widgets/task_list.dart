@@ -6,7 +6,9 @@ import 'task_empty.dart';
 import 'task_list_item.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({super.key});
+  const TaskList({required this.scrollController, super.key});
+
+  final ScrollController scrollController;
 
   @override
   Widget build(final BuildContext context) {
@@ -25,6 +27,7 @@ class TaskList extends StatelessWidget {
           ),
           loaded: (final tasks) => tasks.isNotEmpty
               ? ListView.builder(
+                  controller: scrollController,
                   itemCount: tasks.length,
                   itemBuilder: (final context, final index) {
                     final task = tasks[index];

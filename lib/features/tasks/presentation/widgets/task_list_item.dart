@@ -28,14 +28,24 @@ class TaskListItem extends StatelessWidget {
           child: Icon(Icons.delete, color: Colors.white),
         ),
       ),
-      child: ListTile(
-        title: Text(task.title),
-        leading: Checkbox(
-          value: task.completed,
-          onChanged: (final value) async {
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        color: task.completed ? Colors.grey[300] : Colors.white,
+        child: InkWell(
+          onTap: () async {
             final cubit = context.read<TasksCubit>();
-            await _updateTask(value: value, cubit: cubit);
+            await _updateTask(value: !task.completed, cubit: cubit);
           },
+          child: ListTile(
+            title: Text(task.title),
+            leading: Checkbox(
+              value: task.completed,
+              onChanged: (final value) async {
+                final cubit = context.read<TasksCubit>();
+                await _updateTask(value: value, cubit: cubit);
+              },
+            ),
+          ),
         ),
       ),
     );

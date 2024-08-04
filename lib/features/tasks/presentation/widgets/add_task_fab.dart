@@ -6,21 +6,35 @@ import '../state_managers/tasks_cubit.dart';
 import 'add_task_form.dart';
 
 class AddTaskFab extends StatefulWidget {
-  const AddTaskFab({super.key});
+  const AddTaskFab({required this.isFABVisible, super.key});
+
+  final bool isFABVisible;
 
   @override
   State<AddTaskFab> createState() => _AddTaskFabState();
 }
 
 class _AddTaskFabState extends State<AddTaskFab> {
-  bool isFABVisible = true;
+  bool _isFABVisible = true;
+
+  @override
+  void initState() {
+    _isFABVisible = widget.isFABVisible;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(final AddTaskFab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _isFABVisible = widget.isFABVisible;
+  }
 
   @override
   Widget build(final BuildContext context) {
-    return Visibility(
-      visible: isFABVisible,
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 300),
+      opacity: _isFABVisible ? 1 : 0,
       child: FloatingActionButton(
-        backgroundColor: Colors.tealAccent[100],
         child: const Icon(Icons.add),
         onPressed: () {
           _changeFABVisibility(isVisible: false);
@@ -42,7 +56,7 @@ class _AddTaskFabState extends State<AddTaskFab> {
 
   void _changeFABVisibility({required final bool isVisible}) {
     setState(() {
-      isFABVisible = isVisible;
+      _isFABVisible = isVisible;
     });
   }
 
