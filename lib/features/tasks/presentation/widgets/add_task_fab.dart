@@ -32,6 +32,7 @@ class _AddTaskFabState extends State<AddTaskFab> {
   @override
   Widget build(final BuildContext context) {
     return AnimatedOpacity(
+      key: const ValueKey('fab_opacity'),
       duration: const Duration(milliseconds: 300),
       opacity: _isFABVisible ? 1 : 0,
       child: FloatingActionButton(

@@ -21,6 +21,7 @@ class TaskListItem extends StatelessWidget {
         context.read<TasksCubit>().deleteTask(task.id);
       },
       background: Container(
+        key: Key('dismissible_container_${task.id}'),
         color: Colors.red,
         alignment: Alignment.centerRight,
         child: const Padding(
@@ -32,6 +33,7 @@ class TaskListItem extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         color: task.completed ? Colors.grey[300] : Colors.white,
         child: InkWell(
+          key: const Key('task_list_item_inkwell'),
           onTap: () async {
             final cubit = context.read<TasksCubit>();
             await _updateTask(value: !task.completed, cubit: cubit);

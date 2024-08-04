@@ -27,12 +27,16 @@ class TaskList extends StatelessWidget {
           ),
           loaded: (final tasks) => tasks.isNotEmpty
               ? ListView.builder(
+                  key: const ValueKey('task_list_view'),
                   controller: scrollController,
                   itemCount: tasks.length,
                   itemBuilder: (final context, final index) {
                     final task = tasks[index];
 
-                    return TaskListItem(task: task);
+                    return TaskListItem(
+                      task: task,
+                      key: ValueKey('task_${task.id}'),
+                    );
                   },
                 )
               : const EmptyListWidget(),
