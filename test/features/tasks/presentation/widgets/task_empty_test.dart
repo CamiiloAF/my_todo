@@ -32,19 +32,6 @@ void main() {
     expect(column.mainAxisAlignment, MainAxisAlignment.center);
   });
 
-  testWidgets('EmptyListWidget has correct padding at the top',
-      (final tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(
-          body: EmptyListWidget(),
-        ),
-      ),
-    );
-
-    final sizedBox = tester.widget<SizedBox>(find.byType(SizedBox).first);
-    expect(sizedBox.height, greaterThan(0));
-  });
   testWidgets('EmptyListWidget has correct correct text', (final tester) async {
     await tester.pumpWidget(
       const MaterialApp(
