@@ -6,11 +6,11 @@ enum TaskFilterOptions {
   String get text {
     switch (this) {
       case TaskFilterOptions.all:
-        return 'All  ';
+        return 'All';
       case TaskFilterOptions.completed:
-        return 'Completed  ';
+        return 'Completed';
       case TaskFilterOptions.pending:
-        return 'Pending  ';
+        return 'Pending';
     }
   }
 }

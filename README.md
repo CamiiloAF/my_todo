@@ -12,3 +12,11 @@ Engine • revision 2e4ba9c6fb
 Tools • Dart 3.3.1 • DevTools 2.31.1
 
 
+## Set up environment
+Get dependencies and generate require files:
+
+```bash
+flutter clean
+flutter packages pub get
+dart run build_runner build --delete-conflicting-outputs
+```
