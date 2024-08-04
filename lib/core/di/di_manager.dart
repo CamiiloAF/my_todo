@@ -7,8 +7,6 @@ import '../local_storage/di/database_di.dart';
 abstract class DIManager {
   static GetIt getIt = GetIt.instance;
 
-  static bool alreadyInitialized = false;
-
   static void initializeDependencies({required final Database database}) {
     final dependencies = [
       DatabaseDI(database),
@@ -18,7 +16,5 @@ abstract class DIManager {
     for (final dependency in dependencies) {
       dependency.initializeDependencies();
     }
-
-    alreadyInitialized = true;
   }
 }
