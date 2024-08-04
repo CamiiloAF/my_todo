@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/entities/task.dart';
+import '../state_managers/tasks_cubit.dart';
 import 'add_task_form.dart';
 
 class AddTaskFab extends StatefulWidget {
@@ -19,22 +22,31 @@ class _AddTaskFabState extends State<AddTaskFab> {
       child: FloatingActionButton(
         backgroundColor: Colors.tealAccent[100],
         child: const Icon(Icons.add),
-
         onPressed: () {
-          setState(() {
-            isFABVisible = false;
-          });
+          _changeFABVisibility(isVisible: false);
 
-          showBottomSheet(
+          showModalBottomSheet(
             context: context,
-            builder: (final context) => const AddTaskForm(),
-          ).closed.then((final value) {
-            setState(() {
-              isFABVisible = true;
-            });
-          });
+            shape: const RoundedRectangleBorder(),
+            isScrollControlled: true,
+            builder: (final _) => AddTaskForm(
+              addTask: _addTask,
+            ),
+          ).whenComplete(
+            () => _changeFABVisibility(isVisible: true),
+          );
         },
       ),
     );
+  }
+
+  void _changeFABVisibility({required final bool isVisible}) {
+    setState(() {
+      isFABVisible = isVisible;
+    });
+  }
+
+  Future<void> _addTask(final Task task) {
+    return context.read<TasksCubit>().addTask(task);
   }
 }

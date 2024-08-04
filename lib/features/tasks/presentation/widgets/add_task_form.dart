@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/task.dart';
-import '../state_managers/tasks_cubit.dart';
 
 class AddTaskForm extends StatefulWidget {
-  const AddTaskForm({super.key});
+  const AddTaskForm({required this.addTask, super.key});
+
+  final Future<void> Function(Task task) addTask;
 
   @override
   State<AddTaskForm> createState() => _AddTaskFormState();
@@ -36,14 +36,10 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
   @override
   Widget build(final BuildContext context) {
-    return BlocListener<TasksCubit, TasksState>(
-      listener: (final context, final state) {
-        state.whenOrNull(
-          saved: () {
-            Navigator.of(context).pop();
-          },
-        );
-      },
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -90,6 +86,10 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
     final task = Task(id: 0, title: taskName);
 
-    await context.read<TasksCubit>().addTask(task);
+    await widget.addTask(task);
+
+    if (mounted) {
+      Navigator.of(context).pop();
+    }
   }
 }
