@@ -9,7 +9,7 @@ abstract class LocalDatabase {
       join(await getDatabasesPath(), 'tasks.db'),
       onCreate: (final db, final version) {
         return db.execute(
-          'CREATE TABLE IF NOT EXIST ${DatabaseTables.tasks}(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0)',
+          'CREATE TABLE ${DatabaseTables.tasks}(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, completed INTEGER NOT NULL DEFAULT 0)',
         );
       },
       version: 1,
