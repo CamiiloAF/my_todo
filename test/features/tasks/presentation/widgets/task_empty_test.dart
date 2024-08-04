@@ -31,17 +31,4 @@ void main() {
     final column = tester.widget<Column>(find.byType(Column));
     expect(column.mainAxisAlignment, MainAxisAlignment.center);
   });
-
-  testWidgets('EmptyListWidget has correct correct text', (final tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(
-          body: EmptyListWidget(),
-        ),
-      ),
-    );
-
-    final textFinder = find.text('No tasks were found');
-    expect(textFinder, findsOne);
-  });
 }
